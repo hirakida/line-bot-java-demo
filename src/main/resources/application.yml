@@ -1,5 +1,3 @@
 line:
   bot:
-    channel-token:
-    channel-secret:
     handler.path: /callback
