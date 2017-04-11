@@ -38,8 +38,7 @@ public class MessageHandler {
 
     @EventMapping
     public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
-        TextMessageContent message = event.getMessage();
-        handleTextContent(event.getReplyToken(), event, message);
+        handleTextContent(event.getReplyToken(), event, event.getMessage());
     }
 
     @EventMapping
