@@ -1,4 +1,4 @@
-# line-bot-demo
+# simple-line-bot
 
 Add the following values to Environment Variables on PWS or application.yml.  
 ```
