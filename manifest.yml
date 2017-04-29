@@ -1,5 +1,5 @@
 applications:
-  - name: line-bot-demo
-    path: build/libs/line-bot-demo-0.0.1-SNAPSHOT.jar
+  - name: simple-line-bot
+    path: build/libs/simple-line-bot-0.0.1-SNAPSHOT.jar
     buildpack: java_buildpack
     random-route: false
