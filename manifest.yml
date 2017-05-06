@@ -1,5 +1,6 @@
 applications:
   - name: simple-line-bot
     path: build/libs/simple-line-bot-0.0.1-SNAPSHOT.jar
+    memory: 128m
     buildpack: java_buildpack
     random-route: false
