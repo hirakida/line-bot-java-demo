@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.model.PushMessage;
-import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.StickerMessage;
 import com.linecorp.bot.model.message.TextMessage;
@@ -18,30 +17,10 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @AllArgsConstructor
 @Slf4j
-public class MessageSender {
+public class PushMessageSender {
 
     final LineMessagingClient lineMessagingClient;
 
-    /**
-     * reply message
-     */
-    public void replyText(String replyToken, String message) {
-        reply(replyToken, new TextMessage(message));
-    }
-
-    public void reply(String replyToken, Message message) {
-        reply(replyToken, Collections.singletonList(message));
-    }
-
-    private void reply(String replyToken, List<Message> messages) {
-        ReplyMessage message = new ReplyMessage(replyToken, messages);
-        lineMessagingClient.replyMessage(message)
-                           .thenAccept(response -> log.info("response: {}", response));
-    }
-
-    /**
-     * push message
-     */
     public void pushText(String to, String message) {
         push(to, new TextMessage(message));
     }

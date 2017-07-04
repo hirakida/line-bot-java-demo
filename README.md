@@ -1,17 +1,19 @@
-# line-bot-java
+# line-bot-java-demo
 
-PWS
+https://github.com/line/line-bot-sdk-java
+
+- PWS
 ```
-$ ./gradlew build 
+$ ./gradlew clean build 
 
 $ cf login -a api.run.pivotal.io
 $ cf push
 ```
 
-Heroku
+- Heroku
 ```
 $ heroku login
-$ heroku create line-bot-java-hirakida
+$ heroku create line-bot-java-demo-hirakida
 $ git push heroku master
 ```
 
@@ -20,5 +22,3 @@ Add the following values to Environment Variables.
 line.bot.channel-token 
 line.bot.channel-secret
 ```
-
-https://github.com/line/line-bot-sdk-java

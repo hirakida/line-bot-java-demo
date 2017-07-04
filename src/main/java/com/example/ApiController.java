@@ -15,7 +15,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class ApiController {
 
-    final MessageSender messageSender;
+    final PushMessageSender messageSender;
 
     @PostMapping("/text")
     public void pushText(@RequestBody @Validated PushText pushText) {
