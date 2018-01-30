@@ -24,17 +24,16 @@ import com.linecorp.bot.model.event.source.Source;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @LineMessageHandler
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Slf4j
 public class EventHandler {
 
-    final LineMessagingClient lineMessagingClient;
-    final ReplyMessageSender replyMessageSender;
-    final PushMessageSender pushMessageSender;
+    private final LineMessagingClient lineMessagingClient;
+    private final ReplyMessageSender replyMessageSender;
 
     /**
      * Text Message Event

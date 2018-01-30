@@ -2,11 +2,15 @@
 
 https://github.com/line/line-bot-sdk-java
 
-- PWS
+- Cloud Foundry
 ```
 $ ./gradlew clean build 
 
+# Pivotal Web Services
 $ cf login -a api.run.pivotal.io
+# IBM Bluemix
+$ cf login -a api.ng.bluemix.net
+
 $ cf push
 ```
 

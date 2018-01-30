@@ -11,15 +11,13 @@ import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.StickerMessage;
 import com.linecorp.bot.model.message.TextMessage;
 
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 
 @Component
-@AllArgsConstructor
-@Slf4j
+@RequiredArgsConstructor
 public class PushMessageSender {
 
-    final LineMessagingClient lineMessagingClient;
+    private final LineMessagingClient lineMessagingClient;
 
     public void pushText(String to, String message) {
         push(to, new TextMessage(message));

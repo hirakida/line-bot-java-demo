@@ -1,7 +1,7 @@
 buildscript {
     ext {
-        springBootVersion = '1.5.8.RELEASE'
-        lineBotVersion = '1.10.0'
+        springBootVersion = '1.5.13.RELEASE'
+        lineBotVersion = '1.17.0'
     }
     repositories {
         mavenCentral()
@@ -18,7 +18,6 @@ apply plugin: 'org.springframework.boot'
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 
-targetCompatibility = 1.8
 sourceCompatibility = 1.8
 
 tasks.withType(JavaCompile) {
@@ -32,6 +31,7 @@ repositories {
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     compile("com.linecorp.bot:line-bot-spring-boot:${lineBotVersion}")
+    annotationProcessor('org.projectlombok:lombok')
     compileOnly('org.projectlombok:lombok')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }

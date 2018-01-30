@@ -7,15 +7,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ApiController {
 
-    final PushMessageSender messageSender;
+    private final PushMessageSender messageSender;
 
     @PostMapping("/text")
     public void pushText(@RequestBody @Validated PushText pushText) {
