@@ -14,13 +14,6 @@ $ cf login -a api.ng.bluemix.net
 $ cf push
 ```
 
-- Heroku
-```
-$ heroku login
-$ heroku create line-bot-java-demo-hirakida
-$ git push heroku master
-```
-
 Add the following values to Environment Variables.  
 ```
 line.bot.channel-token 

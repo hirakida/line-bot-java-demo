@@ -3,3 +3,9 @@ line:
     handler.path: /callback
 #    channel-secret: xxxxxxxxxx
 #    channel-token: xxxxxxxxxx
+
+#liff:
+#  linkUrl:
+#    compact: line://app/XXXXXXXX
+#    tall: line://app/XXXXXXXX
+#    full: line://app/XXXXXXXX

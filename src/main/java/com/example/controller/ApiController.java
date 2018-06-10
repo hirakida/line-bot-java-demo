@@ -1,28 +1,28 @@
-package com.example;
+package com.example.controller;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.service.MessageSender;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api")
 @RequiredArgsConstructor
 public class ApiController {
 
-    private final PushMessageSender messageSender;
+    private final MessageSender messageSender;
 
-    @PostMapping("/text")
+    @PostMapping("/api/text")
     public void pushText(@RequestBody @Validated PushText pushText) {
         messageSender.pushText(pushText.getTo(), pushText.getText());
     }
 
-    @PostMapping("/sticker")
+    @PostMapping("/api/sticker")
     public void pushSticker(@RequestBody @Validated PushSticker pushSticker) {
         messageSender.pushSticker(pushSticker.getTo(),
                                   pushSticker.getPackageId(),

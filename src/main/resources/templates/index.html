@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LIFF Demo</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous" />
+</head>
+<body>
+<div class="container">
+  <div class="table-responsive" style="margin-top:1em; margin-bottom:1em;">
+    <table class="table table-sm">
+      <thead></thead>
+      <tbody>
+      <tr>
+        <th>language</th>
+        <td><span id="language"></span></td>
+      </tr>
+      <tr>
+        <th>context.type</th>
+        <td><span id="context_type"></span></td>
+      </tr>
+      <tr>
+        <th>context.viewType</th>
+        <td><span id="context_viewType"></span></td>
+      </tr>
+      <tr>
+        <th>context.userId</th>
+        <td><span id="context_userId"></span></td>
+      </tr>
+      <tr>
+        <th>context.utouId</th>
+        <td><span id="context_utouId"></span></td>
+      </tr>
+      <tr>
+        <th>context.roomId</th>
+        <td><span id="context_roomId"></span></td>
+      </tr>
+      <tr>
+        <th>context.groupId</th>
+        <td><span id="context_groupId"></span></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div>
+    <button type="button" class="close" id="closeBtn">&times;</button>
+  </div>
+
+  <div>
+    <button type="button" class="btn btn-primary" id="profileBtn">profile</button>
+  </div>
+  <div class="table-responsive" style="margin-bottom:1em;">
+    <table class="table table-sm">
+      <thead></thead>
+      <tbody>
+      <tr>
+        <th>userId</th>
+        <td><span id="userId"></span></td>
+      </tr>
+      <tr>
+        <th>displayName</th>
+        <td><span id="displayName"></span></td>
+      </tr>
+      <tr>
+        <th>pictureUrl</th>
+        <td><img id="pictureUrl" src="" width="200" height="200" /></td>
+      </tr>
+      <tr>
+        <th>statusMessage</th>
+        <td><span id="statusMessage"></span></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="input-group" style="margin-bottom:1em;">
+    <input type="text" class="form-control" id="textMessage" title="message" />
+    <span class="input-group-btn">
+      <button type="button" class="btn btn-secondary" id="sendTextBtn">send</button>
+    </span>
+  </div>
+</div>
+<script src="https://d.line-scdn.net/liff/1.0/sdk.js"></script>
+<script>
+  window.onload = () => {
+    liff.init(data => {
+        language.innerText = data.language;
+        context_type.innerText = data.context.type;
+        context_viewType.innerText = data.context.viewType;
+        context_userId.innerText = data.context.userId;
+        if (data.context.type === 'utou') {
+          context_utouId.innerText = data.context.utouId;
+        } else if (data.context.type === 'room') {
+          context_roomId.innerText = data.context.roomId;
+        } else if (data.context.type === 'group') {
+          context_groupId.innerText = data.context.groupId;
+        }
+
+        closeBtn.onclick = () => {
+          liff.closeWindow();
+        };
+
+        profileBtn.onclick = () => {
+          liff.getProfile()
+              .then(data => {
+                userId.innerText = data.userId;
+                displayName.innerText = data.displayName;
+                pictureUrl.src = data.pictureUrl;
+                statusMessage.innerText = data.statusMessage;
+              })
+              .catch(err => {
+                console.error(err);
+              });
+        };
+
+        sendTextBtn.onclick = () => {
+          liff.sendMessages([{
+            type: 'text',
+            text: textMessage.value
+          }]).then(() => {
+            console.log('sent');
+          }).catch((err) => {
+            console.log(err);
+          });
+        };
+      },
+      err => {
+        console.error(err);
+      });
+  };
+</script>
+</body>
+</html>
