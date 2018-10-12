@@ -1,7 +1,7 @@
 package com.example.controller;
 
 import com.example.service.MessageSender;
-import com.example.service.MessageService;
+import com.example.service.MessageEventService;
 
 import com.linecorp.bot.model.event.BeaconEvent;
 import com.linecorp.bot.model.event.Event;
@@ -19,6 +19,8 @@ import com.linecorp.bot.model.event.message.StickerMessageContent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.event.message.VideoMessageContent;
 import com.linecorp.bot.model.event.postback.PostbackContent;
+import com.linecorp.bot.model.message.LocationMessage;
+import com.linecorp.bot.model.message.StickerMessage;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 
@@ -29,8 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class EventHandler {
-
-    private final MessageService messageService;
+    private final MessageEventService messageEventService;
     private final MessageSender messageSender;
 
     /**
@@ -38,7 +39,7 @@ public class EventHandler {
      */
     @EventMapping
     public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
-        messageService.handleTextContent(event.getReplyToken(), event, event.getMessage());
+        messageEventService.handleTextContent(event.getReplyToken(), event, event.getMessage());
     }
 
     /**
@@ -46,8 +47,9 @@ public class EventHandler {
      */
     @EventMapping
     public void handleStickerMessageEvent(MessageEvent<StickerMessageContent> event) {
-        StickerMessageContent content = event.getMessage();
-        messageSender.replySticker(event.getReplyToken(), content.getPackageId(), content.getStickerId());
+        final StickerMessageContent content = event.getMessage();
+        messageSender.reply(event.getReplyToken(),
+                            new StickerMessage(content.getPackageId(), content.getStickerId()));
     }
 
     /**
@@ -55,7 +57,7 @@ public class EventHandler {
      */
     @EventMapping
     public void handleImageMessageEvent(MessageEvent<ImageMessageContent> event) {
-        ImageMessageContent content = event.getMessage();
+        final ImageMessageContent content = event.getMessage();
         log.info("ImageMessageContent:{}", content);
     }
 
@@ -64,7 +66,7 @@ public class EventHandler {
      */
     @EventMapping
     public void handleVideoMessageEvent(MessageEvent<VideoMessageContent> event) {
-        VideoMessageContent content = event.getMessage();
+        final VideoMessageContent content = event.getMessage();
         log.info("VideoMessageContent:{}", content);
     }
 
@@ -73,7 +75,7 @@ public class EventHandler {
      */
     @EventMapping
     public void handleAudioMessageEvent(MessageEvent<AudioMessageContent> event) {
-        AudioMessageContent content = event.getMessage();
+        final AudioMessageContent content = event.getMessage();
         log.info("AudioMessageContent:{}", content);
     }
 
@@ -82,7 +84,7 @@ public class EventHandler {
      */
     @EventMapping
     public void handleFileMessageEvent(MessageEvent<FileMessageContent> event) {
-        FileMessageContent content = event.getMessage();
+        final FileMessageContent content = event.getMessage();
         log.info("FileMessageContent:{}", content);
     }
 
@@ -91,9 +93,10 @@ public class EventHandler {
      */
     @EventMapping
     public void handleLocationMessageEvent(MessageEvent<LocationMessageContent> event) {
-        LocationMessageContent content = event.getMessage();
-        messageSender.replyLocation(event.getReplyToken(), content.getTitle(), content.getAddress(),
-                                    content.getLatitude(), content.getLongitude());
+        final LocationMessageContent content = event.getMessage();
+        messageSender.reply(event.getReplyToken(),
+                            new LocationMessage(content.getTitle(), content.getAddress(),
+                                                content.getLatitude(), content.getLongitude()));
     }
 
     /**
@@ -133,8 +136,8 @@ public class EventHandler {
      */
     @EventMapping
     public void handlePostbackEvent(PostbackEvent event) {
-        PostbackContent content = event.getPostbackContent();
-        String message = "postback data:" + content.getData() + " params:" + content.getParams();
+        final PostbackContent content = event.getPostbackContent();
+        final String message = "postback data:" + content.getData() + " params:" + content.getParams();
         messageSender.replyText(event.getReplyToken(), message);
     }
 

@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml">
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LIFF Demo</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
-        crossorigin="anonymous" />
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
 </head>
 <body>
 <div class="container">
@@ -43,14 +42,16 @@
         <th>context.groupId</th>
         <td><span id="context_groupId"></span></td>
       </tr>
+      <tr>
+        <th>hash</th>
+        <td><span id="location_hash"></span></td>
+      </tr>
       </tbody>
     </table>
   </div>
-
   <div>
     <button type="button" class="close" id="closeBtn">&times;</button>
   </div>
-
   <div>
     <button type="button" class="btn btn-primary" id="profileBtn">profile</button>
   </div>
@@ -77,7 +78,6 @@
       </tbody>
     </table>
   </div>
-
   <div class="input-group" style="margin-bottom:1em;">
     <input type="text" class="form-control" id="textMessage" title="message" />
     <span class="input-group-btn">
@@ -86,53 +86,6 @@
   </div>
 </div>
 <script src="https://d.line-scdn.net/liff/1.0/sdk.js"></script>
-<script>
-  window.onload = () => {
-    liff.init(data => {
-        language.innerText = data.language;
-        context_type.innerText = data.context.type;
-        context_viewType.innerText = data.context.viewType;
-        context_userId.innerText = data.context.userId;
-        if (data.context.type === 'utou') {
-          context_utouId.innerText = data.context.utouId;
-        } else if (data.context.type === 'room') {
-          context_roomId.innerText = data.context.roomId;
-        } else if (data.context.type === 'group') {
-          context_groupId.innerText = data.context.groupId;
-        }
-
-        closeBtn.onclick = () => {
-          liff.closeWindow();
-        };
-
-        profileBtn.onclick = () => {
-          liff.getProfile()
-              .then(data => {
-                userId.innerText = data.userId;
-                displayName.innerText = data.displayName;
-                pictureUrl.src = data.pictureUrl;
-                statusMessage.innerText = data.statusMessage;
-              })
-              .catch(err => {
-                console.error(err);
-              });
-        };
-
-        sendTextBtn.onclick = () => {
-          liff.sendMessages([{
-            type: 'text',
-            text: textMessage.value
-          }]).then(() => {
-            console.log('sent');
-          }).catch((err) => {
-            console.log(err);
-          });
-        };
-      },
-      err => {
-        console.error(err);
-      });
-  };
-</script>
+<script src="/js/index.js"></script>
 </body>
 </html>

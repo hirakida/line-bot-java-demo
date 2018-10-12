@@ -1,12 +1,18 @@
 package com.example.controller;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.NotEmpty;
+
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.service.MessageSender;
+import com.example.service.RichMenuService;
+
+import com.linecorp.bot.model.message.StickerMessage;
+import com.linecorp.bot.model.message.TextMessage;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -14,36 +20,52 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 public class ApiController {
-
     private final MessageSender messageSender;
+    private final RichMenuService richMenuService;
 
     @PostMapping("/api/text")
     public void pushText(@RequestBody @Validated PushText pushText) {
-        messageSender.pushText(pushText.getTo(), pushText.getText());
+        messageSender.push(pushText.getTo(), new TextMessage(pushText.getText()));
     }
 
     @PostMapping("/api/sticker")
     public void pushSticker(@RequestBody @Validated PushSticker pushSticker) {
-        messageSender.pushSticker(pushSticker.getTo(),
-                                  pushSticker.getPackageId(),
-                                  pushSticker.getStickerId());
+        messageSender.push(pushSticker.getTo(),
+                           new StickerMessage(pushSticker.getPackageId(), pushSticker.getStickerId()));
+    }
+
+    @PostMapping("/api/richmenu")
+    public RichMenuResponse createRichMenu(@RequestBody @Validated RichMenuRequest request) {
+        final String richMenuId = richMenuService.create(request.getName(), request.getChatBarText());
+        return new RichMenuResponse(richMenuId);
+    }
+
+    @GetMapping("/api/richmenu")
+    public void getRichMenu() {
+        richMenuService.getList();
     }
 
     @Data
     public static class PushText {
-        @NotEmpty
-        private String to;
-        @NotEmpty
-        private String text;
+        private @NotEmpty String to;
+        private @NotEmpty String text;
     }
 
     @Data
     public static class PushSticker {
-        @NotEmpty
-        private String to;
-        @NotEmpty
-        private String packageId;
-        @NotEmpty
-        private String stickerId;
+        private @NotEmpty String to;
+        private @NotEmpty String packageId;
+        private @NotEmpty String stickerId;
+    }
+
+    @Data
+    public static class RichMenuRequest {
+        private String name;
+        private String chatBarText;
+    }
+
+    @Data
+    public static class RichMenuResponse {
+        private final String richMenuId;
     }
 }
