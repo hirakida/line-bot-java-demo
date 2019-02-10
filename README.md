@@ -1,8 +1,5 @@
 # line-bot-java-demo
 
-https://github.com/line/line-bot-sdk-java
-
-- Cloud Foundry
 ```
 $ ./gradlew clean build 
 

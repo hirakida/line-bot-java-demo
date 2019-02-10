@@ -1,6 +1,6 @@
 package com.example.controller;
 
-import com.example.service.MessageSender;
+import com.example.client.MessageSender;
 import com.example.service.MessageEventService;
 
 import com.linecorp.bot.model.event.BeaconEvent;

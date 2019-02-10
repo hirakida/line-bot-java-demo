@@ -7,7 +7,7 @@ import org.springframework.validation.annotation.Validated;
 
 import lombok.Data;
 
-@ConfigurationProperties(prefix = "liff")
+@ConfigurationProperties(prefix = "line.liff")
 @Validated
 @Data
 public class LiffProperties {

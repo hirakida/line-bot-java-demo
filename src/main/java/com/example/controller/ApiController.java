@@ -6,9 +6,12 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.service.MessageSender;
+import com.example.client.DeliveryResponse;
+import com.example.client.MessagingApiClient;
+import com.example.client.MessageSender;
 import com.example.service.RichMenuService;
 
 import com.linecorp.bot.model.message.StickerMessage;
@@ -21,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ApiController {
     private final MessageSender messageSender;
+    private final MessagingApiClient messagingApiClient;
     private final RichMenuService richMenuService;
 
     @PostMapping("/api/text")
@@ -32,6 +36,21 @@ public class ApiController {
     public void pushSticker(@RequestBody @Validated PushSticker pushSticker) {
         messageSender.push(pushSticker.getTo(),
                            new StickerMessage(pushSticker.getPackageId(), pushSticker.getStickerId()));
+    }
+
+    @GetMapping("/api/delivery/reply")
+    public DeliveryResponse getReplyDelivery(@RequestParam String date) {
+        return messagingApiClient.getReplyDelivery(date);
+    }
+
+    @GetMapping("/api/delivery/push")
+    public DeliveryResponse getPushDelivery(@RequestParam String date) {
+        return messagingApiClient.getPushDelivery(date);
+    }
+
+    @GetMapping("/api/delivery/multicast")
+    public DeliveryResponse getMulticastDelivery(@RequestParam String date) {
+        return messagingApiClient.getMulticastDelivery(date);
     }
 
     @PostMapping("/api/richmenu")

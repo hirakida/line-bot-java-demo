@@ -7,7 +7,8 @@ import java.util.Collections;
 
 import org.springframework.stereotype.Service;
 
-import com.linecorp.bot.client.LineMessagingClient;
+import com.example.client.MessageSender;
+
 import com.linecorp.bot.model.action.URIAction;
 import com.linecorp.bot.model.message.FlexMessage;
 import com.linecorp.bot.model.message.flex.component.Box;

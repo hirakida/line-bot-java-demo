@@ -6,9 +6,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.example.client.MessageSender;
 import com.example.config.LiffProperties;
 import com.example.config.LiffProperties.LinkUrl;
 

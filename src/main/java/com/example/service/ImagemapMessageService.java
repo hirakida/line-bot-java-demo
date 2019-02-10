@@ -5,6 +5,8 @@ import java.util.Arrays;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.example.client.MessageSender;
+
 import com.linecorp.bot.model.message.ImagemapMessage;
 import com.linecorp.bot.model.message.imagemap.ImagemapArea;
 import com.linecorp.bot.model.message.imagemap.ImagemapBaseSize;

@@ -4,10 +4,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
+import com.example.config.LineBotProperties;
 import com.example.config.LiffProperties;
 
 @SpringBootApplication
-@EnableConfigurationProperties(LiffProperties.class)
+@EnableConfigurationProperties({ LiffProperties.class, LineBotProperties.class })
 public class LineBotApplication {
 
     public static void main(String[] args) {
