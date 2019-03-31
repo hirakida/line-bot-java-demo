@@ -1,10 +1,9 @@
 applications:
   - name: line-bot-java-demo
     path: build/libs/line-bot-java-demo-0.0.1-SNAPSHOT.jar
-    buildpack: java_buildpack
     memory: 256m
     instances: 1
     random-route: false
     env:
       JAVA_OPTS: '-XX:ReservedCodeCacheSize=32M -XX:+PrintGCDetails'
-      JBP_CONFIG_OPEN_JDK_JRE: '{ memory_calculator: { stack_threads: 30 } }'
+      JBP_CONFIG_OPEN_JDK_JRE: '{ memory_calculator: { stack_threads: 30 }, jre: { version: 11.+} }'
