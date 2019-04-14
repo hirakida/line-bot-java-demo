@@ -1,14 +1,14 @@
 plugins {
     id 'idea'
     id 'java'
-    id 'org.springframework.boot' version '2.1.3.RELEASE'
+    id 'org.springframework.boot' version '2.1.4.RELEASE'
 }
 
 apply plugin: 'io.spring.dependency-management'
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = JavaVersion.VERSION_11
+sourceCompatibility = JavaVersion.VERSION_12
 
 repositories {
     mavenCentral()
@@ -17,12 +17,10 @@ repositories {
 dependencies {
     def lineBotVersion = '2.4.0'
     def bootstrapVersion = '4.3.1'
-
     annotationProcessor('org.springframework.boot:spring-boot-configuration-processor')
-    compileOnly('org.springframework.boot:spring-boot-configuration-processor')
     annotationProcessor('org.projectlombok:lombok')
+    compileOnly('org.springframework.boot:spring-boot-configuration-processor')
     compileOnly('org.projectlombok:lombok')
-
     implementation('org.springframework.boot:spring-boot-starter-web')
     implementation('org.springframework.boot:spring-boot-starter-thymeleaf')
     implementation("com.linecorp.bot:line-bot-spring-boot:${lineBotVersion}")
