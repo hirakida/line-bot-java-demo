@@ -4,7 +4,6 @@ import static com.example.config.Constants.IMAGE_URL;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -30,31 +29,31 @@ public class QuickReplyService {
 
     public void replyQuickReply(String replyToken) {
         final List<QuickReplyItem> items =
-                Arrays.asList(QuickReplyItem.builder()
-                                            .action(CameraAction.withLabel("CameraAction"))
-                                            .build(),
-                              QuickReplyItem.builder()
-                                            .action(CameraRollAction.withLabel("CemeraRollAction"))
-                                            .build(),
-                              QuickReplyItem.builder()
-                                            .action(LocationAction.withLabel("LocationAction"))
-                                            .build(),
-                              QuickReplyItem.builder()
-                                            .action(new MessageAction("MessageAction", "MessageAction"))
-                                            .imageUrl(createURI(IMAGE_URL))
-                                            .build(),
-                              QuickReplyItem.builder()
-                                            .action(PostbackAction.builder()
-                                                                  .label("PostbackAction")
-                                                                  .text("PostbackAction")
-                                                                  .data("postback action")
-                                                                  .build())
-                                            .build(),
-                              QuickReplyItem.builder()
-                                            .action(new DatetimePickerAction("DatetimePickerAction",
-                                                                             "datetime action",
-                                                                             "datetime"))
-                                            .build());
+                List.of(QuickReplyItem.builder()
+                                      .action(CameraAction.withLabel("CameraAction"))
+                                      .build(),
+                        QuickReplyItem.builder()
+                                      .action(CameraRollAction.withLabel("CemeraRollAction"))
+                                      .build(),
+                        QuickReplyItem.builder()
+                                      .action(LocationAction.withLabel("LocationAction"))
+                                      .build(),
+                        QuickReplyItem.builder()
+                                      .action(new MessageAction("MessageAction", "MessageAction"))
+                                      .imageUrl(createURI(IMAGE_URL))
+                                      .build(),
+                        QuickReplyItem.builder()
+                                      .action(PostbackAction.builder()
+                                                            .label("PostbackAction")
+                                                            .text("PostbackAction")
+                                                            .data("postback action")
+                                                            .build())
+                                      .build(),
+                        QuickReplyItem.builder()
+                                      .action(new DatetimePickerAction("DatetimePickerAction",
+                                                                       "datetime action",
+                                                                       "datetime"))
+                                      .build());
         final QuickReply quickReply = QuickReply.builder()
                                                 .items(items)
                                                 .build();

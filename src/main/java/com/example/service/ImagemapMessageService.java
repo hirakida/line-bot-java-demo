@@ -1,6 +1,6 @@
 package com.example.service;
 
-import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -25,15 +25,15 @@ public class ImagemapMessageService {
                 new ImagemapMessage(buildImageUrl("imagemap"),
                                     "Imagemap Template",
                                     new ImagemapBaseSize(1040, 1040),
-                                    Arrays.asList(new URIImagemapAction("https://line.me",
-                                                                        new ImagemapArea(0, 0, 520, 520)),
-                                                  new URIImagemapAction("https://developers.line.me/ja/",
-                                                                        new ImagemapArea(0, 520, 520, 520)),
-                                                  new MessageImagemapAction("message1",
-                                                                            new ImagemapArea(520, 0, 520, 520)),
-                                                  new MessageImagemapAction("message2",
-                                                                            new ImagemapArea(520, 520, 520,
-                                                                                             520))));
+                                    List.of(new URIImagemapAction("https://line.me",
+                                                                  new ImagemapArea(0, 0, 520, 520)),
+                                            new URIImagemapAction("https://developers.line.me/ja/",
+                                                                  new ImagemapArea(0, 520, 520, 520)),
+                                            new MessageImagemapAction("message1",
+                                                                      new ImagemapArea(520, 0, 520, 520)),
+                                            new MessageImagemapAction("message2",
+                                                                      new ImagemapArea(520, 520, 520,
+                                                                                       520))));
         messageSender.reply(replyToken, message);
     }
 

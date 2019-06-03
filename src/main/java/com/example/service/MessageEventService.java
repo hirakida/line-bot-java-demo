@@ -2,7 +2,6 @@ package com.example.service;
 
 import static com.example.config.Constants.IMAGE_URL;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -81,9 +80,9 @@ public class MessageEventService {
                                                        .toUriString();
                 final ButtonsTemplate template =
                         new ButtonsTemplate(url, "Button Template", "LIFF",
-                                            Arrays.asList(new URIAction("compact", linkUrl.getCompact()),
-                                                          new URIAction("tall", linkUrl.getTall()),
-                                                          new URIAction("full", linkUrl.getFull())));
+                                            List.of(new URIAction("compact", linkUrl.getCompact(), null),
+                                                    new URIAction("tall", linkUrl.getTall(), null),
+                                                    new URIAction("full", linkUrl.getFull(), null)));
                 messageSender.reply(replyToken, new TemplateMessage("Button Template", template));
                 break;
             }
