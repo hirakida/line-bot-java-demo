@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hirakida/line-bot-nodejs-demo.git"
+    "url": "git+https://github.com/hirakida/line-bot-demo.git"
   },
   "author": "",
   "license": "ISC"

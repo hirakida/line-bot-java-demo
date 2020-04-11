@@ -1,0 +1,8 @@
+applications:
+  - name: line-bot-go-demo
+    memory: 128m
+    instances: 1
+    random-route: false
+    env:
+      GOVERSION: go1.14
+      GOPACKAGENAME: github.com/hirakida/line-bot-demo

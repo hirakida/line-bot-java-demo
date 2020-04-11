@@ -3,4 +3,5 @@ applications:
 - name: line-bot-nodejs-demo
   memory: 64m
   instances: 1
+  random-route: false
   stack: cflinuxfs3
