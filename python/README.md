@@ -1,0 +1,6 @@
+
+Environment Variables
+```
+LINE_CHANNEL_SECRET
+LINE_CHANNEL_ACCESS_TOKEN
+```

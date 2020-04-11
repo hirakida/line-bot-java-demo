@@ -1,0 +1,7 @@
+---
+applications:
+- name: line-bot-python-demo
+  memory: 128m
+  instances: 1
+  random-route: false
+  command: python3 app.py
