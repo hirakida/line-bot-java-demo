@@ -1,0 +1,24 @@
+{
+  "name": "line-bot-nodejs-demo",
+  "version": "1.0.0",
+  "description": "line bot demo",
+  "main": "index.js",
+  "dependencies": {
+    "@line/bot-sdk": "^6.8.4",
+    "axios": "^0.19.2",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": "13.12.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hirakida/line-bot-nodejs-demo.git"
+  },
+  "author": "",
+  "license": "ISC"
+}

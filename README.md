@@ -1,7 +1,2 @@
-# line-bot-java-demo
+# line-bot-demo
 
-Environment Variables
-```
-line.bot.channel-token 
-line.bot.channel-secret
-```
