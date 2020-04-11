@@ -11,6 +11,8 @@ import lombok.Data;
 @Validated
 @Data
 public class LineBotProperties {
-    private @NotNull String channelSecret;
-    private @NotNull String channelToken;
+    @NotNull
+    private String channelSecret;
+    @NotNull
+    private String channelToken;
 }

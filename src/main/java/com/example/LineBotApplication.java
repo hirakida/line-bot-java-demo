@@ -2,13 +2,10 @@ package com.example;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-
-import com.example.config.LineBotProperties;
-import com.example.config.LiffProperties;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 
 @SpringBootApplication
-@EnableConfigurationProperties({ LiffProperties.class, LineBotProperties.class })
+@ConfigurationPropertiesScan
 public class LineBotApplication {
 
     public static void main(String[] args) {

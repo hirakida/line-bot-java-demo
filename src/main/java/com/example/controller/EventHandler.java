@@ -1,6 +1,6 @@
 package com.example.controller;
 
-import com.example.client.MessageSender;
+import com.example.client.MessagingClient;
 import com.example.service.MessageEventService;
 
 import com.linecorp.bot.model.event.BeaconEvent;
@@ -32,127 +32,85 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class EventHandler {
     private final MessageEventService messageEventService;
-    private final MessageSender messageSender;
+    private final MessagingClient messagingClient;
 
-    /**
-     * Text Message Event
-     */
     @EventMapping
     public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
         messageEventService.handleTextContent(event.getReplyToken(), event, event.getMessage());
     }
 
-    /**
-     * Sticker Message Event
-     */
     @EventMapping
     public void handleStickerMessageEvent(MessageEvent<StickerMessageContent> event) {
         final StickerMessageContent content = event.getMessage();
-        messageSender.reply(event.getReplyToken(),
-                            new StickerMessage(content.getPackageId(), content.getStickerId()));
+        messagingClient.reply(event.getReplyToken(),
+                              new StickerMessage(content.getPackageId(), content.getStickerId()));
     }
 
-    /**
-     * Image Message Event
-     */
     @EventMapping
     public void handleImageMessageEvent(MessageEvent<ImageMessageContent> event) {
         final ImageMessageContent content = event.getMessage();
         log.info("ImageMessageContent:{}", content);
     }
 
-    /**
-     * Video Message Event
-     */
     @EventMapping
     public void handleVideoMessageEvent(MessageEvent<VideoMessageContent> event) {
         final VideoMessageContent content = event.getMessage();
         log.info("VideoMessageContent:{}", content);
     }
 
-    /**
-     * Audio Message Event
-     */
     @EventMapping
     public void handleAudioMessageEvent(MessageEvent<AudioMessageContent> event) {
         final AudioMessageContent content = event.getMessage();
         log.info("AudioMessageContent:{}", content);
     }
 
-    /**
-     * File Message Event
-     */
     @EventMapping
     public void handleFileMessageEvent(MessageEvent<FileMessageContent> event) {
         final FileMessageContent content = event.getMessage();
         log.info("FileMessageContent:{}", content);
     }
 
-    /**
-     * Location Message Event
-     */
     @EventMapping
     public void handleLocationMessageEvent(MessageEvent<LocationMessageContent> event) {
         final LocationMessageContent content = event.getMessage();
-        messageSender.reply(event.getReplyToken(),
-                            new LocationMessage(content.getTitle(), content.getAddress(),
-                                                content.getLatitude(), content.getLongitude()));
+        messagingClient.reply(event.getReplyToken(),
+                              new LocationMessage(content.getTitle(), content.getAddress(),
+                                                  content.getLatitude(), content.getLongitude()));
     }
 
-    /**
-     * Follow Event
-     */
     @EventMapping
     public void handleFollowEvent(FollowEvent event) {
-        messageSender.replyText(event.getReplyToken(), "Got followed event");
+        messagingClient.replyText(event.getReplyToken(), "Got followed event");
     }
 
-    /**
-     * UnFollow Event
-     */
     @EventMapping
     public void handleUnfollowEvent(UnfollowEvent event) {
         log.info("unfollowedEvent: {}", event);
     }
 
-    /**
-     * Join Event
-     */
     @EventMapping
     public void handleJoinEvent(JoinEvent event) {
-        messageSender.replyText(event.getReplyToken(), "Joined " + event.getSource());
+        messagingClient.replyText(event.getReplyToken(), "Joined " + event.getSource());
     }
 
-    /**
-     * Leave Event
-     */
     @EventMapping
     public void handleLeaveEvent(LeaveEvent event) {
         log.info("leaveEvent: {}", event);
     }
 
-    /**
-     * Postback Event
-     */
     @EventMapping
     public void handlePostbackEvent(PostbackEvent event) {
         final PostbackContent content = event.getPostbackContent();
         final String message = "postback data:" + content.getData() + " params:" + content.getParams();
-        messageSender.replyText(event.getReplyToken(), message);
+        messagingClient.replyText(event.getReplyToken(), message);
     }
 
-    /**
-     * Beacon Event
-     */
     @EventMapping
     public void handleBeaconEvent(BeaconEvent event) {
-        messageSender.replyText(event.getReplyToken(),
-                                "Got beacon message " + event.getBeacon().getHwid());
+        messagingClient.replyText(event.getReplyToken(),
+                                  "Got beacon message " + event.getBeacon().getHwid());
     }
 
-    /**
-     * Other Event
-     */
     @EventMapping
     public void handleOtherEvent(Event event) {
         log.info("Received message(Ignored): {}", event);

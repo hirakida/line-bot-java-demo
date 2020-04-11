@@ -3,12 +3,12 @@ package com.example.service;
 import static com.example.config.Constants.IMAGE_URL;
 
 import java.net.URI;
-import java.net.URISyntaxException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.example.client.MessageSender;
+import com.example.client.MessagingClient;
 
 import com.linecorp.bot.model.action.CameraAction;
 import com.linecorp.bot.model.action.CameraRollAction;
@@ -25,10 +25,10 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class QuickReplyService {
-    private final MessageSender messageSender;
+    private final MessagingClient messagingClient;
 
     public void replyQuickReply(String replyToken) {
-        final List<QuickReplyItem> items =
+        List<QuickReplyItem> items =
                 List.of(QuickReplyItem.builder()
                                       .action(CameraAction.withLabel("CameraAction"))
                                       .build(),
@@ -40,7 +40,7 @@ public class QuickReplyService {
                                       .build(),
                         QuickReplyItem.builder()
                                       .action(new MessageAction("MessageAction", "MessageAction"))
-                                      .imageUrl(createURI(IMAGE_URL))
+                                      .imageUrl(URI.create(IMAGE_URL))
                                       .build(),
                         QuickReplyItem.builder()
                                       .action(PostbackAction.builder()
@@ -50,25 +50,20 @@ public class QuickReplyService {
                                                             .build())
                                       .build(),
                         QuickReplyItem.builder()
-                                      .action(new DatetimePickerAction("DatetimePickerAction",
-                                                                       "datetime action",
-                                                                       "datetime"))
+                                      .action(DatetimePickerAction.OfLocalDatetime.builder()
+                                                                                  .label("DatetimePickerAction")
+                                                                                  .data("datetime action")
+                                                                                  .initial(LocalDateTime.now())
+                                                                                  .build())
                                       .build());
-        final QuickReply quickReply = QuickReply.builder()
-                                                .items(items)
-                                                .build();
-        final TextMessage message = TextMessage.builder()
-                                               .text("Quick Reply")
-                                               .quickReply(quickReply)
-                                               .build();
-        messageSender.reply(replyToken, message);
-    }
+        QuickReply quickReply = QuickReply.builder()
+                                          .items(items)
+                                          .build();
+        TextMessage message = TextMessage.builder()
+                                         .text("Quick Reply")
+                                         .quickReply(quickReply)
+                                         .build();
 
-    private static URI createURI(String uri) {
-        try {
-            return new URI(uri);
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
+        messagingClient.reply(replyToken, message);
     }
 }
